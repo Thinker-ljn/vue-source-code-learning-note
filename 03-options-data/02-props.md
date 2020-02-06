@@ -12,7 +12,7 @@ src/core/instance/state.js
 
 有两个点需要注意: 
 - 除根组件外, 由于 props 的值是从父(祖先)组件传下的来, 意味着这个值已经被定义成响应式的了, 这里只要把 props 的 key 定义成响应式, 且只定义 get, 忽略 set, 因为 props 是不可写的
-- 如果是静态的 props key, 意味着这是在 [Vue.extend](../02-global-API/01-Vue.extend.md) 定义的, 存在于子类原型上, 通过 proxy 代理来访问这个静态的属性.
+- 如果是静态的 props key, 意味着这是在 [Vue.extend](../02-global-API/01-Vue.extend.md) 定义的, 存在于原型上, 不需要通过 proxy 代理来访问这个静态的属性.
 
 ```js
 function initProps (vm: Component, propsOptions: Object) {
