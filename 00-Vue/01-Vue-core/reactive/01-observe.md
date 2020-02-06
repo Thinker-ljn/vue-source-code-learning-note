@@ -17,7 +17,7 @@ export function toggleObserving (value: boolean) {
 
 Vue 定义了 Observer 类来包装需要响应式处理的 value
 - 关联一个 [Dep](./02-dep.md) 实例, 用于 value 子孙属性的变更, 以及本身添加新属性或删除属性
-- 记录引用这个 value 的 Vue 实例的个数
+- 引用计数, 记录引用这个 value 的 Vue 实例的个数, 不为零则表示 value 是 Vue 实例的根数据, 不能使用 [Vue.set](../../../02-global-API/03-Vue.set.md), [Vue.delete](../../../02-global-API/04-Vue.delete.md)
 - 把自身赋予 value 的 \__ob__ 属性
 - 对 value 进行响应式处理
 

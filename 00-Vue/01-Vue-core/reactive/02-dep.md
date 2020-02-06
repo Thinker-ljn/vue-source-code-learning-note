@@ -10,7 +10,7 @@ src/core/observe/dep.js
 
 Dep 文件定义了一个订阅栈, 栈顶的值就是 Dep.target, 订阅器执行时, 可能会调用其他订阅器, 这是一个栈结构, 就如同 js 调用函数一样, 需要一个函数调用栈.
 
-当 Dep.target 是假值时, 表示当前没有订阅器或者不需要进行订阅收集
+当 Dep.target 是假值时, 表示当前没有订阅器或者不需要进行订阅收集, 也就是说, 当需要执行某些操作, 我们不希望触发订阅收集时, 我们可以以空参数调用 pushTarget, 来达到 Dep.target 为假, 执行完操作后再 popTarget. 源码中有许多地方都用到了这种方法. 
 
 ```js
 Dep.target = null
