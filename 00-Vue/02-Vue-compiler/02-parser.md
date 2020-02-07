@@ -77,7 +77,7 @@ src/compiler/parser/index.js
 
 ### 变量说明
 
-- inPre: 保留用户编写的文本 ?
+- inPre: 保留元素, 不编译
 
 ### 注释节点, 传入 ParseHTML 的 options.comment
 
@@ -101,3 +101,32 @@ const input = 'This is {{fruit}}, that is {{book}}'
 const output = "This is" + _s(fruit) + ", that is" + _s(book)
 ```
 
+### 元素节点 options.start - tag, attrs, unary, start, end
+
+- 拿到 currentParent(父 ASTEle) 的namespace
+- 如果有, 并且是 svg, 并且在IE, 处理attrs
+- 创建一个 element: ASTEle
+- 赋予 namespace
+- 如果是禁止的元素标签: style, script(有text/javascript)
+  - 设置 element.forbidden = true
+- element **预变换**
+- 如果 inVPre 不为真
+  -  **processPre**
+  - 如果 element.pre 为真或者是平台保留元素\<pre>, inVPre = true
+- 如果 inVPre
+  - **processRawAttrs**
+- 不是
+  - **processFor**
+  - **processIf**
+  - **processOnce**
+- 如果 AST root 还没有设置, root = element
+- 如果 !unary (不是一元标签)
+  - currentParent = element
+  - element 入栈
+- 否则直接 **closeElement**
+
+### 元素节点 options.end - tag, start, end
+
+- 拿到栈顶 AST元素并出栈
+- 设置 currentParent 为新的栈顶元素
+- **closeElement**
