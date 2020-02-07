@@ -61,6 +61,33 @@ src/compiler/parser/html-parser.js
     - 把当前 tagName 信息入栈， lastTab = tagName
   - 处理 当前标签 **options.start**
 
+```js
+const attribute = /^\s*([^\s"'<>\/=]+)(?:\s*(=)\s*(?:"([^"]*)"+|'([^']*)'+|([^\s"'=<>`]+)))?/
+const dynamicArgAttribute = /^\s*((?:v-[\w-]+:|@|:|#)\[[^=]+\][^\s"'<>\/=]*)(?:\s*(=)\s*(?:"([^"]*)"+|'([^']*)'+|([^\s"'=<>`]+)))?/
+
+interface MatchAttr {
+  0: string // name=value
+  1?: string // name
+  2?: '='   // =
+  3?: string // value
+  4?: string
+  5?: string
+}
+interface Attr {
+  start: number
+  end: number
+  name: string
+  value: string
+}
+interface Tag {
+  tagName: string
+  attrs: Attr[]
+  start: number
+  end?: number
+  unarySlash?: '/'
+}
+```
+
 ### parseEndTag 函数
 
 - 在栈中找出最靠近的同名的 tag 的位置
