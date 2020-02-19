@@ -44,7 +44,7 @@ declare type CompilerOptions = {
 
 不同平台的模块与指令的定义, 用于 codegen 阶段把用户编写的模板模块与指令转为 js 代码
 
-以 web 平台为例
+以 web 平台为例，会有编译时和运行时的模块或指令，在这里自然只用到 compiler 文件夹下的模块或指令。运行时的会在 VNode Patch 时使用。
 
 - src/platforms/web
   - compiler
@@ -57,3 +57,17 @@ declare type CompilerOptions = {
       - model.js
       - style.js
     - options.js
+  - runtime
+    - components
+      - transition-group.js
+      - transition.js
+    - directives
+      - model.js
+      - show.js
+    - modules
+      - attrs.js
+      - class.js
+      - dom-props.js
+      - events.js
+      - style.js
+      - transition.js

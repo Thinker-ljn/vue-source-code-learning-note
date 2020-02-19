@@ -14,7 +14,7 @@
 
 ## 模板的解析过程
 
-src/compiler/parser/html-parser.js
+`src/compiler/parser/html-parser.js`
 
 定义相应的正则变量, 用来匹配各种节点信息
 
@@ -157,3 +157,41 @@ const output = "This is" + _s(fruit) + ", that is" + _s(book)
 - 拿到栈顶 AST元素并出栈
 - 设置 currentParent 为新的栈顶元素
 - **closeElement**
+
+### 元素属性/指令的解析
+
+**processPre**, 如果元素属性上有 `v-pre`, 则 `el.pre = true`
+
+**processRawAttrs**, 元素的属性列表不为空时, 依次复制到 `el.attrs`, 否则如果是平台保留元素则 `el.plain = true`
+
+
+### 函数
+
+- options.start
+  - createASTElement
+  - processPre, platformIsPreTag
+    - processRawAttrs
+  - processFor
+  - processIf
+  - processOnce
+  - closeElement
+- options.end
+  - closeElement
+
+- closeElement
+  - processElement
+  - addIfCondition
+  - processIfConditions
+
+- processElement
+  - processKey
+  - processRef
+  - processSlotContent
+  - processSlotOutlet
+  - processComponent
+  - processAttrs
+
+- processAttrs
+  - v-bind
+  - v-on
+  - normal
